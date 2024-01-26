@@ -4,6 +4,8 @@ appId: "com.github.marktext.marktext"
 asar: true
 asarUnpack:
 - "**/*.node"
+- "**/node_modules/sharp/**/*"
+- "**/node_modules/@img/**/*"
 directories:
   output: "build"
 # Workaround: Don't download prebuilt libraries (GH#2953).
