@@ -1,15 +1,19 @@
 <template>
   <section class="base64-setting">
     <h5>Base64 Transfer setting</h5>
-    <text-box description="Max image size (KB)" :input="base64Setting.maxSize"
-      :regexValidator="/^[1-9]\d*$/" :defaultValue="maxSize"
-      :onChange="value => onSelectNumChange('maxSize', value)"></text-box>
     <text-box description="Max image Width" :input="base64Setting.maxWidth"
       :regexValidator="/^[1-9]\d*$/" :defaultValue="maxWidth"
       :onChange="value => onSelectNumChange('maxWidth', value)"></text-box>
     <text-box description="Max image Height" :input="base64Setting.maxHeight"
       :regexValidator="/^[1-9]\d*$/" :defaultValue="maxHeight"
       :onChange="value => onSelectNumChange('maxHeight', value)"></text-box>
+    <bool description="Keep image ratio"
+      more="When selecting 'maintain aspect ratio,' the system will ensure the aspect ratio of the image and make sure that neither the width nor the height exceeds the specified dimensions."
+      :bool="base64Setting.keepRatio"
+      :onChange="value => onSelectChange('keepRatio', value)"></bool>
+    <text-box description="Max image size (KB)" :input="base64Setting.maxSize"
+      :regexValidator="/^[1-9]\d*$/" :defaultValue="maxSize"
+      :onChange="value => onSelectNumChange('maxSize', value)"></text-box>
     <range
         description="Compression quality"
         :value="base64Setting.quality"
@@ -18,10 +22,6 @@
         :step="5"
         :onChange="value => onSelectChange('quality', value)"
       ></range>
-    <bool description="Keep image ratio"
-      more="When selecting 'maintain aspect ratio,' the system will ensure the aspect ratio of the image and make sure that neither the width nor the height exceeds the specified dimensions."
-      :bool="base64Setting.keepRatio"
-      :onChange="value => onSelectChange('keepRatio', value)"></bool>
   </section>
 </template>
 
