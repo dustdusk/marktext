@@ -289,9 +289,9 @@ export const transferImage = async (pathname, image, preferences) => {
     }
   } else {
     const reader = new FileReader()
-    reader.onload = async () => {
-      const base64 = await compress(reader.result)
-      re('data:image/png;base64,' + base64)
+    reader.onload = async (e) => {
+      const base64 = await compress(Buffer.from(e.target.result))
+      re('data:image/png;base64,' + base64.toString('base64'))
     }
     reader.readAsArrayBuffer(image)
   }
