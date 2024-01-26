@@ -93,7 +93,14 @@ const state = {
       branch: ''
     }
   },
-  cliScript: ''
+  cliScript: '',
+  base64Setting: {
+    maxSize: 500,
+    maxWidth: 800,
+    maxHeight: 600,
+    quality: 70,
+    keepRatio: true
+  }
 }
 
 const getters = {}

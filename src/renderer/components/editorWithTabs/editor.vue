@@ -101,7 +101,7 @@ import Printer from '@/services/printService'
 import { SpellcheckerLanguageCommand } from '@/commands'
 import { SpellChecker } from '@/spellchecker'
 import { isOsx, animatedScrollTo } from '@/util'
-import { moveImageToFolder, moveToRelativeFolder, uploadImage } from '@/util/fileSystem'
+import { moveImageToFolder, moveToRelativeFolder, uploadImage, transferImage } from '@/util/fileSystem'
 import { guessClipboardFilePath } from '@/util/clipboard'
 import { getCssForOptions, getHtmlToc } from '@/util/pdf'
 import { addCommonStyle, setEditorWidth } from '@/util/theme'
@@ -724,6 +724,18 @@ export default {
       const resolvedImageRelativeDirectoryName = getResolvedImagePath(imageRelativeDirectoryName)
       let destImagePath = ''
       switch (imageInsertAction) {
+        case 'base64': {
+          try {
+            destImagePath = await transferImage(pathname, image, preferences)
+          } catch (err) {
+            notice.notify({
+              title: 'Transfer Image',
+              type: 'warning',
+              message: err
+            })
+          }
+          break
+        }
         case 'upload': {
           try {
             destImagePath = await uploadImage(pathname, image, preferences)

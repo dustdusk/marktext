@@ -5,6 +5,7 @@ import { statSync, constants } from 'fs'
 import cp from 'child_process'
 import { tmpdir } from 'os'
 import dayjs from 'dayjs'
+import sharp from 'sharp'
 import { Octokit } from '@octokit/rest'
 import { isImageFile } from 'common/filesystem/paths'
 import { isWindows } from './index'
@@ -246,4 +247,53 @@ export const isFileExecutableSync = (filepath) => {
     // err ignored
     return false
   }
+}
+
+export const transferImage = async (pathname, image, preferences) => {
+  const isPath = typeof image === 'string'
+  const { base64Setting } = preferences
+  const maxSize = base64Setting.maxSize * 1024
+  let re
+  const promise = new Promise((resolve) => {
+    re = resolve
+  })
+
+  const compress = async (imageData) => {
+    const size = imageData.length
+    let sharpObj = sharp(imageData)
+    const { width, height } = await sharpObj.metadata()
+    // Compress image size and determine whether to maintain aspect ratio
+    if (width > base64Setting.maxWidth || height > base64Setting.maxHeight) {
+      sharpObj = sharpObj.resize(base64Setting.maxWidth, base64Setting.maxHeight, {
+        fit: base64Setting.keepRatio ? 'inside' : 'fill',
+        withoutEnlargement: true
+      })
+    }
+    // If the file size is larger than the specified size, try to compress it with the quality
+    if (size > maxSize) {
+      sharpObj = sharpObj.jpeg({ quality: base64Setting.quality, force: true })
+    }
+    let newImageData = await sharpObj.toBuffer()
+    return newImageData
+  }
+  if (isPath) {
+    const dirname = path.dirname(pathname)
+    const imagePath = path.resolve(dirname, image)
+    const isImage = isImageFile(imagePath)
+    if (isImage) {
+      const imageFile = await fs.readFile(imagePath)
+      const base64 = await compress(imageFile)
+      re('data:image/png;base64,' + base64.toString('base64'))
+    } else {
+      re(image)
+    }
+  } else {
+    const reader = new FileReader()
+    reader.onload = async () => {
+      const base64 = await compress(reader.result)
+      re('data:image/png;base64,' + base64)
+    }
+    reader.readAsArrayBuffer(image)
+  }
+  return promise
 }

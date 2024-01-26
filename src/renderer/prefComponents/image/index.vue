@@ -15,6 +15,7 @@
     <Separator />
     <FolderSetting v-if="imageInsertAction === 'folder' || imageInsertAction === 'path'" />
     <Uploader v-if="imageInsertAction === 'upload'" />
+    <Base64Setting v-if="imageInsertAction === 'base64'" />
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import Separator from '../common/separator'
 import Uploader from './components/uploader'
 import CurSelect from '@/prefComponents/common/select'
 import FolderSetting from './components/folderSetting'
+import Base64Setting from './components/base64Setting'
 import { imageActions } from './config'
 
 export default {
@@ -30,7 +32,8 @@ export default {
     Separator,
     CurSelect,
     FolderSetting,
-    Uploader
+    Uploader,
+    Base64Setting
   },
   data () {
     this.imageActions = imageActions

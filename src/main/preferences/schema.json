@@ -343,6 +343,7 @@
   "imageInsertAction": {
     "description": "Image--The default behavior after insert image from local folder",
     "enum": [
+      "base64",
       "upload",
       "folder",
       "path"
