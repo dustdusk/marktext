@@ -12,28 +12,32 @@ Original README.md translations:
 [:portugal:](docs/i18n/pt.md#readme)
 [:kr:](docs/i18n/ko.md#readme)
 
-
 [MarkText](https://github.com/marktext/marktext) is a markdown editor written by [Jocs](https://github.com/Jocs) and [contributors](https://github.com/marktext/marktext/graphs/contributors).
 
 This is a fork of [the official MarkText repository](https://github.com/marktext/marktext), where I've merged in a bunch of open PRs from the upstream repository.
 My intent is to keep Marktext alive while there is a lull in engagement from the official repo's owners.
 If the maintainers choose to bring that repository back to life, I'll sunset this fork in favor of theirs.
 
-**I have very limited time, all I can really do is make sure the app can still run.
-If you would like to see this project grow, please do what you can to help!
-I will prioritize PR reviews.
-Thank you.**
+This fork is aimed at enhancing Marktext's image functionality. It adds the ability to automatically convert images into Base64 strings and insert them into the markdown document. You can configure the converted file size limit and image dimensions.
+
+**This feature enhances consistency and portability between images and Markdown files.**
 
 ## Installing
 
 ### Linux
 
-Builds are available in rpm, deb, and AppImage formats right now!
-Head over to our [releases page](https://github.com/jacobwhall/marktext/releases) to download a copy.
+~~Builds are available in rpm, deb, and AppImage formats right now!
+Head over to our [releases page](https://github.com/jacobwhall/marktext/releases) to download a copy.~~
 
-### MacOS and Windows
+**The version provided by jacobwhall above is the Linux version and does not include the new feature within this fork.**
 
-✨ coming soon! ✨
+### MacOS
+
+✨ coming soon... or never ✨
+
+### Windows
+
+Head over to our [releases page](https://github.com/dustdusk/marktext/releases) to download a copy.
 
 ## Contributing
 
