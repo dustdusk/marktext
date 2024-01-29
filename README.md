@@ -18,9 +18,13 @@ This is a fork of [the official MarkText repository](https://github.com/marktext
 My intent is to keep Marktext alive while there is a lull in engagement from the official repo's owners.
 If the maintainers choose to bring that repository back to life, I'll sunset this fork in favor of theirs.
 
-This fork is aimed at enhancing Marktext's image functionality. It adds the ability to automatically convert images into Base64 strings and insert them into the markdown document. You can configure the converted file size limit and image dimensions.
+---
 
-**This feature enhances consistency and portability between images and Markdown files.**
+**The description above represents the original content of jacobwhall, while the following describes the additional features introduced by this fork.**
+
+My fork is aimed at enhancing Marktext's image functionality. It adds the ability to automatically convert images into Base64 strings and insert them into the markdown document. You can configure the converted file size limit and image dimensions.
+
+This feature enhances consistency and portability between images and Markdown files.
 
 ## Installing
 
