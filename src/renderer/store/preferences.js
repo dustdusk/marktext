@@ -14,6 +14,7 @@ const state = {
   fileSortBy: 'created',
   startUpAction: 'lastState',
   defaultDirectoryToOpen: '',
+  treePathExcludePatterns: [],
   language: 'en',
 
   editorFontFamily: 'Open Sans',
@@ -23,6 +24,7 @@ const state = {
   codeFontFamily: 'DejaVu Sans Mono',
   codeBlockLineNumbers: true,
   trimUnnecessaryCodeBlockEmptyLines: true,
+  wrapCodeBlocks: true,
   editorLineWidth: '',
 
   autoPairBracket: true,
@@ -55,6 +57,7 @@ const state = {
 
   theme: 'light',
   autoSwitchTheme: 2,
+  customCss: '',
 
   spellcheckerEnabled: false,
   spellcheckerNoUnderline: false,

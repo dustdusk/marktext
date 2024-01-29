@@ -150,12 +150,12 @@ export const uploadImage = async (pathname, image, preferences) => {
       })
   }
 
-  const uploadByCommand = async (uploader, filepath) => {
+  const uploadByCommand = async (uploader, filepath, suffix = '') => {
     let isPath = true
     if (typeof filepath !== 'string') {
       isPath = false
       const data = new Uint8Array(filepath)
-      filepath = path.join(tmpdir(), +new Date())
+      filepath = path.join(tmpdir(), +new Date() + suffix)
       await fs.writeFile(filepath, data)
     }
     if (uploader === 'picgo') {
@@ -225,15 +225,14 @@ export const uploadImage = async (pathname, image, preferences) => {
         switch (currentUploader) {
           case 'picgo':
           case 'cliScript':
-            uploadByCommand(currentUploader, reader.result)
+            uploadByCommand(currentUploader, reader.result, path.extname(image.name))
             break
           default:
-            uploadByGithub(reader.result, image.name)
+            uploadByGithub(Buffer.from(reader.result).toString('base64'), image.name)
         }
       }
 
-      const readerFunction = currentUploader !== 'github' ? 'readAsArrayBuffer' : 'readAsDataURL'
-      reader[readerFunction](image)
+      reader.readAsArrayBuffer(image)
     }
   }
   return promise
@@ -242,7 +241,11 @@ export const uploadImage = async (pathname, image, preferences) => {
 export const isFileExecutableSync = (filepath) => {
   try {
     const stat = statSync(filepath)
-    return stat.isFile() && (stat.mode & (constants.S_IXUSR | constants.S_IXGRP | constants.S_IXOTH)) !== 0
+    if (process.platform === 'win32') {
+      return stat.isFile()
+    } else {
+      return stat.isFile() && (stat.mode & (constants.S_IXUSR | constants.S_IXGRP | constants.S_IXOTH)) !== 0
+    }
   } catch (err) {
     // err ignored
     return false
